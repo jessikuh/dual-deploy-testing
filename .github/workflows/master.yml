@@ -38,10 +38,18 @@ jobs:
 
       - name: Push Images
         run: |-
-          docker push "gcr.io/$PROJECT_ID/$IMAGE1:$GITHUB_SHA" \
-            "gcr.io/$PROJECT_ID/$IMAGE1:latest" \
-            "gcr.io/$PROJECT_ID/$IMAGE2:$GITHUB_SHA" \
-            "gcr.io/$PROJECT_ID/$IMAGE2:latest"
+          IMAGE_ID1=gcr.io/$PROJECT_ID/$IMAGE1
+          IMAGE_ID2=gcr.io/$PROJECT_ID/$IMAGE2
+          VERSION=$GITHUB_SHA
+
+          echo IMAGE_ID1=$IMAGE_ID1
+          echo IMAGE_ID1=$IMAGE_ID2
+          echo VERSION=$VERSION
+
+          docker push $IMAGE_ID1:$VERSION \
+            $IMAGE_ID1:latest \
+            $IMAGE_ID2:$VERSION \
+            $IMAGE_ID2:latest
 
       - name: Deploy
         run: |-
