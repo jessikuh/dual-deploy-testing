@@ -12,8 +12,8 @@ jobs:
     runs-on: ubuntu-latest
     env:
       PROJECT_ID: ${{ secrets.GOOGLE_PROJECT_ID }}
-      IMAGE1: test-app-1
-      IMAGE2: test-app-2
+      APP1: test-app-1
+      APP2: test-app-2
       RUN_REGION: us-central1
 
     steps:
@@ -37,31 +37,31 @@ jobs:
       # https://www.learncloudnative.com/blog/2020-02-20-github-action-build-push-docker-images/
       - name: Build Images
         run: |-
-          echo "gcr.io/$PROJECT_ID/$IMAGE1:$GITHUB_SHA" && \
+          echo "gcr.io/$PROJECT_ID/$APP1:$GITHUB_SHA" && \
           docker build \
-            -t "gcr.io/$PROJECT_ID/$IMAGE1:$GITHUB_SHA" \
-            -t "gcr.io/$PROJECT_ID/$IMAGE1:latest" \
-            -t "gcr.io/$PROJECT_ID/$IMAGE2:$GITHUB_SHA" \
-            -t "gcr.io/$PROJECT_ID/$IMAGE2:latest" .
+            -t "gcr.io/$PROJECT_ID/$APP1:$GITHUB_SHA" \
+            -t "gcr.io/$PROJECT_ID/$APP1:latest" \
+            -t "gcr.io/$PROJECT_ID/$APP2:$GITHUB_SHA" \
+            -t "gcr.io/$PROJECT_ID/$APP2:latest" .
 
       - name: Push Images
         run: |-
-          docker push "gcr.io/$PROJECT_ID/$IMAGE1:$GITHUB_SHA" \
-          && docker push "gcr.io/$PROJECT_ID/$IMAGE1:latest" \
-          && docker push "gcr.io/$PROJECT_ID/$IMAGE2:latest" \
-          && docker push "gcr.io/$PROJECT_ID/$IMAGE2:latest"
+          docker push "gcr.io/$PROJECT_ID/$APP1:$GITHUB_SHA" \
+          && docker push "gcr.io/$PROJECT_ID/$APP1:latest" \
+          && docker push "gcr.io/$PROJECT_ID/$APP2:latest" \
+          && docker push "gcr.io/$PROJECT_ID/$APP2:latest"
 
       - name: Deploy
         run: |-
-          gcloud run deploy ${{ env.IMAGE1 }} \
+          gcloud run deploy ${{ env.APP1 }} \
             --quiet \
-            --region "$REGION" \
+            --region ${{ env.REGION }} \
             --async \
-            --image "gcr.io/$PROJECT_ID/$IMAGE1:$GITHUB_SHA" \
+            --image "gcr.io/$PROJECT_ID/$APP1:$GITHUB_SHA" \
             --platform managed \
-            && gcloud run deploy $IMAGE2 \
+            && gcloud run deploy {{ $env.APP2 }} \
             --quiet \
-            --region "$REGION" \
+            --region ${{ env.REGION }} \
             --async \
-            --image "gcr.io/$PROJECT_ID/$IMAGE2:$GITHUB_SHA" \
+            --image "gcr.io/$PROJECT_ID/$APP2:$GITHUB_SHA" \
             --platform managed
