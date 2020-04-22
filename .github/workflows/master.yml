@@ -59,7 +59,7 @@ jobs:
             --async \
             --image "gcr.io/$PROJECT_ID/$APP1:$GITHUB_SHA" \
             --platform managed \
-            && gcloud run deploy {{ $env.APP2 }} \
+            && gcloud run deploy ${{ env.APP2 }} \
             --quiet \
             --region ${{ env.REGION }} \
             --async \
