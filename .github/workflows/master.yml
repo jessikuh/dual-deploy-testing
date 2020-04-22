@@ -41,9 +41,9 @@ jobs:
       - name: Push Images
         run: |-
           docker push "gcr.io/$PROJECT_ID/$IMAGE1:$GITHUB_SHA" \
-            $IMAGE_ID1:latest \
-            $IMAGE_ID2:$VERSION \
-            $IMAGE_ID2:latest
+          && docker push "gcr.io/$PROJECT_ID/$IMAGE1:latest" \
+          && docker push "gcr.io/$PROJECT_ID/$IMAGE2:latest" \
+          && docker push "gcr.io/$PROJECT_ID/$IMAGE2:latest"
 
       - name: Deploy
         run: |-
