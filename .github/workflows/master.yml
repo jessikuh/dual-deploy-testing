@@ -9,6 +9,7 @@ env:
   PROJECT_ID: ${{ secrets.GOOGLE_PROJECT_ID }}
   IMAGE1: "test-app-1"
   IMAGE2: "test-app-2"
+  RUN_REGION: us-central1
 
 jobs:
   push:
@@ -38,13 +39,14 @@ jobs:
 
       - name: Push Images
         run: |-
-          IMAGE_ID1=gcr.io/$PROJECT_ID/$IMAGE1
-          IMAGE_ID2=gcr.io/$PROJECT_ID/$IMAGE2
+          IMAGE_ID1=gcr.io/"$PROJECT_ID"/"$IMAGE1"
+          IMAGE_ID2=gcr.io/"$PROJECT_ID"/"$IMAGE2"
           VERSION=$GITHUB_SHA
 
           echo IMAGE_ID1=$IMAGE_ID1
           echo IMAGE_ID1=$IMAGE_ID2
           echo VERSION=$VERSION
+          echo IMAGE_ID1
 
           docker push $IMAGE_ID1:$VERSION \
             $IMAGE_ID1:latest \
