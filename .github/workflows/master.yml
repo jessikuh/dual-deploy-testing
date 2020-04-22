@@ -8,7 +8,7 @@ on:
 
 jobs:
   push:
-    name: Run
+    name: "Deploy to Cloud Run"
     runs-on: ubuntu-latest
     env:
       PROJECT_ID: ${{ secrets.GOOGLE_PROJECT_ID }}
@@ -30,7 +30,7 @@ jobs:
           project_id: ${{ secrets.GOOGLE_PROJECT_ID }}
 
       # Configure gcloud CLI
-      - name: gcloud Setup
+      - name: Authorize Docker
         run: |-
           gcloud auth configure-docker
 
