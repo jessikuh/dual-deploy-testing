@@ -14,7 +14,7 @@ jobs:
       PROJECT_ID: ${{ secrets.GOOGLE_PROJECT_ID }}
       APP1: test-app-1
       APP2: test-app-2
-      RUN_REGION: us-central1
+      REGION: us-central1
 
     steps:
       - name: Checkout
