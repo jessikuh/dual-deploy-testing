@@ -5,15 +5,16 @@ on:
     branches:
       - master
 
-env:
-  PROJECT_ID: ${{ secrets.GOOGLE_PROJECT_ID }}
-  IMAGE1: test-app-1
-  IMAGE2: test-app-2
-  RUN_REGION: us-central1
 
 jobs:
   push:
+    name: Run
     runs-on: ubuntu-latest
+    env:
+      PROJECT_ID: ${{ secrets.GOOGLE_PROJECT_ID }}
+      IMAGE1: test-app-1
+      IMAGE2: test-app-2
+      RUN_REGION: us-central1
 
     steps:
       - name: Checkout
@@ -52,13 +53,13 @@ jobs:
 
       - name: Deploy
         run: |-
-          gcloud run deploy "$IMAGE1" \
+          gcloud run deploy ${{ env.IMAGE1 }} \
             --quiet \
             --region "$REGION" \
             --async \
             --image "gcr.io/$PROJECT_ID/$IMAGE1:$GITHUB_SHA" \
             --platform managed \
-            && gcloud run deploy "$IMAGE2" \
+            && gcloud run deploy $IMAGE2 \
             --quiet \
             --region "$REGION" \
             --async \
