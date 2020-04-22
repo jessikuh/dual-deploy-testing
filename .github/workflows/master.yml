@@ -25,7 +25,7 @@ jobs:
           version: '286.0.0'
           service_account_email: ${{ secrets.SA_EMAIL }}
           service_account_key: ${{ secrets.SA_KEY }}
-          project_id: "$PROJECT_ID"
+          project_id: ${{ secrets.GOOGLE_PROJECT_ID }}
 
       # https://www.learncloudnative.com/blog/2020-02-20-github-action-build-push-docker-images/
       - name: Build Images
