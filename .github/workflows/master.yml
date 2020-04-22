@@ -57,8 +57,10 @@ jobs:
             --region "$REGION" \
             --async \
             --image "gcr.io/$PROJECT_ID/$IMAGE1:$GITHUB_SHA" \
+            --platform managed \
             && gcloud run deploy "$IMAGE2" \
             --quiet \
             --region "$REGION" \
             --async \
-            --image "gcr.io/$PROJECT_ID/$IMAGE2:$GITHUB_SHA"
+            --image "gcr.io/$PROJECT_ID/$IMAGE2:$GITHUB_SHA" \
+            --platform managed
