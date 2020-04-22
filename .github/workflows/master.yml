@@ -7,8 +7,8 @@ on:
 
 env:
   PROJECT_ID: ${{ secrets.GOOGLE_PROJECT_ID }}
-  IMAGE1: "test-app-1"
-  IMAGE2: "test-app-2"
+  IMAGE1: test-app-1
+  IMAGE2: test-app-2
   RUN_REGION: us-central1
 
 jobs:
