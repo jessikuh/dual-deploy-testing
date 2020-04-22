@@ -33,16 +33,14 @@ jobs:
           docker build \
             -t "gcr.io/$PROJECT_ID/$IMAGE1:$GITHUB_SHA" \
             -t "gcr.io/$PROJECT_ID/$IMAGE1:latest" \
-            . && docker build \
             -t "gcr.io/$PROJECT_ID/$IMAGE2:$GITHUB_SHA" \
-            -t "gcr.io/$PROJECT_ID/$IMAGE2:latest"
+            -t "gcr.io/$PROJECT_ID/$IMAGE2:latest" .
 
       - name: Push Images
         run: |-
           docker push \
             "gcr.io/$PROJECT_ID/$IMAGE1:$GITHUB_SHA" \
             "gcr.io/$PROJECT_ID/$IMAGE1:latest" \
-            && docker push \
             "gcr.io/$PROJECT_ID/$IMAGE2:$GITHUB_SHA" \
             "gcr.io/$PROJECT_ID/$IMAGE2:latest"
 
