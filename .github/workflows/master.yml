@@ -31,7 +31,7 @@ jobs:
       # Configure gcloud CLI
       - name: gcloud Setup
         run: |-
-          gcloud config set project $PROJECT_ID
+          gcloud auth configure-docker
 
       # https://www.learncloudnative.com/blog/2020-02-20-github-action-build-push-docker-images/
       - name: Build Images
