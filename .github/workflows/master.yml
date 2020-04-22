@@ -38,8 +38,7 @@ jobs:
 
       - name: Push Images
         run: |-
-          docker push \
-            gcr.io/$PROJECT_ID/$IMAGE1:$GITHUB_SHA \
+          docker push gcr.io/$PROJECT_ID/$IMAGE1:$GITHUB_SHA \
             gcr.io/$PROJECT_ID/$IMAGE1:latest \
             gcr.io/$PROJECT_ID/$IMAGE2:$GITHUB_SHA \
             gcr.io/$PROJECT_ID/$IMAGE2:latest
